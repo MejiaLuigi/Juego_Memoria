@@ -62,7 +62,7 @@ let intentos = 0;
 let tiempo = 60;
 let mostrarAciertos = d.querySelector(".aciertos");
 let mostrarIntentos = d.querySelector(".intentos");
-let mostrarTiempo = d.querySelector(".tiempo");
+let mostrarTiempo = d.querySelector(".tiempos");
 mostrarTiempo.textContent = tiempo;
 let btnIniciar = d.querySelector(".boton-iniciar");
 
@@ -75,6 +75,10 @@ btnIniciar.addEventListener("click", function(){
         if (tiempo==10){
             //Limpiar Intervalo (tiempotrancurrido);
             mostrarTiempo.setAttribute("style", "color:red; font-size:40px");
+        }else if(tiempo == 0){
+            clearInterval(tiempoTrancurrido);
+            alert("Perdiste : (No adivinantes todas las imagenes");
+            location.reload();
         }
     },1000 )
 
@@ -118,7 +122,9 @@ function compararImg(){
     let todasImg = d.querySelectorAll(".tablero .col-3 img")
     //Comparamos
     if (nombreImg[0] == nombreImg[1]) {
-        if (nombreImg [0] == nombreImg[1]){
+        if (posImg [0] != posImg[1]){
+
+
             todasImg[posImg[0]].setAttribute("src", './imagenes/acertar.jpg')
             todasImg[posImg[1]].setAttribute("src", './imagenes/acertar.jpg')
 
@@ -126,14 +132,16 @@ function compararImg(){
             todasImg[posImg[1]].removeEventListener('click',mostrarImagenes)
         }else{
             alert("mano elija otra carta");
-            todasImg [posImg[0]].setAttribute("src", './imagenes/logo.png');
+            todasImg [posImg[0]].setAttribute("src", './imagenes/ocultar.png');
             intentos++;
-            mostrarIntentos.texcontent = aciertos;
+            mostrarIntentos.texcontent = intentos;
         }
 
     } else {
-        todasImg[posImg[0]].setAttribute("src", './imagenes/logo.png')
-        todasImg[posImg[1]].setAttribute("src", './imagenes/logo.png')
+        todasImg[posImg[0]].setAttribute("src", './imagenes/ocultar.png');
+        todasImg[posImg[1]].setAttribute("src", './imagenes/ocultar.png');
+        intentos++;
+        mostrarIntentos.textContent = intentos;
     }
 
     nombreImg = [];
